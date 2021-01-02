@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "1471e8b7-d3db-4155-a8c1-b8e95e5c53aa",
+		"name": "VIDA_Latest - Master(8.12.2020)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "US402720",
+			"item": [
+				{
+					"name": "US402720: Plug Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "926516db-654d-464a-b951-7342b521cfea",
+								"exec": [
+									"// Checking that response is OK and in JSON format\r",
+									"pm.test(\"Status is OK. Response is JSON\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"// checking that plug info is added.'lengthOfPlug', 'plugBaseId' and 'plugBaseName' fields\r",
+									"pm.test(\"Plug info fields are available\", function () {\r",
+									"pm.response.to.have.jsonBody('lengthOfPlug');\r",
+									"pm.response.to.have.jsonBody('plugBaseName');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{vida_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/plug-info/H115118",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"plug-info",
+								"H115118"
+							]
+						},
+						"description": "Reqest should return Plug Info data for mentioned job"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "US402721",
+			"item": [
+				{
+					"name": "US402721:  returns files list of Reports/Lab Report directory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c6820808-28f6-4090-a8c4-c38111b314d7",
+								"exec": [
+									"// Checking that response is OK and in JSON format\r",
+									"pm.test(\"Status is OK. Response is JSON\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vida_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/lab-reports/{{job_number}}",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"lab-reports",
+								"{{job_number}}"
+							]
+						},
+						"description": "returns files list (file names, description, download links) of Reports/Lab Report directory of the specified job. Also response contains link to download entire folder in zip archive. If no any file was found returns empty structure"
+					},
+					"response": []
+				},
+				{
+					"name": "US402721:  returns file content for specified job",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3c9bc4e6-58ea-4dc7-9cc0-69b1b5df6856",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{vida_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/lab-reports/{{job_number}}/file?fileName={{US402721-FileName}}",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"lab-reports",
+								"{{job_number}}",
+								"file"
+							],
+							"query": [
+								{
+									"key": "fileName",
+									"value": "{{US402721-FileName}}"
+								},
+								{
+									"key": "auto",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "returns file content for specified job from Reports/Lab Report folder. fileName – file name to download. If the file name is wrong the response will be Not Found."
+					},
+					"response": []
+				},
+				{
+					"name": "US402721:  returns  Report zipped folder content.",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vida_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/lab-reports/{{job_number}}/zip/",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"lab-reports",
+								"{{job_number}}",
+								"zip",
+								""
+							]
+						},
+						"description": "returns Reports/Lab Report zipped folder content. Returns Not Found response if the folder is empty or doesn’t exist."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "US402722",
+			"item": [
+				{
+					"name": "US402722 list of files from Images/iCem Design directory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "48320d5d-a754-4653-a66d-0777dc61611f",
+								"exec": [
+									"// Checking that response is OK and in JSON format\r",
+									"pm.test(\"Status is OK. Response is JSON\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{vida_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/icem-images/{{job_number}} ",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"icem-images",
+								"{{job_number}} "
+							]
+						},
+						"description": "User Story  402722  \r\nreturns files list of Images/iCem Design directory of the specified job."
+					},
+					"response": []
+				},
+				{
+					"name": "US402722 file content from Images/iCem Design",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"type": "text",
+								"value": "{{vida_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/icem-images/{{job_number}}/file?fileName={{US402722_file_name}}",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"icem-images",
+								"{{job_number}}",
+								"file"
+							],
+							"query": [
+								{
+									"key": "fileName",
+									"value": "{{US402722_file_name}}"
+								}
+							]
+						},
+						"description": "User Story  402722 \r\nreturns file content for specified job from Images/iCem Design folder."
+					},
+					"response": []
+				},
+				{
+					"name": "US402722 Immages/iCemDesign zipped folder content",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"type": "text",
+								"value": "{{vida_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/icem-images/{{job_number}}/zip",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"icem-images",
+								"{{job_number}}",
+								"zip"
+							]
+						},
+						"description": "User Story  402722 \r\nreturns Images/iCem Design zipped folder content"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "US402719",
+			"item": [
+				{
+					"name": "US402719: returns primary file content in mixing-procedure directoy",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vida_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{link}}api/falcon/mixing-procedure/{{job_number}}",
+							"host": [
+								"{{link}}api"
+							],
+							"path": [
+								"falcon",
+								"mixing-procedure",
+								"{{job_number}}"
+							]
+						},
+						"description": "User Story 402719\r\nreturns primary file content if it’s exists in Internal/Mixing Procedure directory for the specified job. Otherwise, response is Not Found (404). Not Found response is also returned if specified job does not exist."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "01 - Basic: Get VIDA Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{bearer_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{link}}api/tokens/",
+					"host": [
+						"{{link}}api"
+					],
+					"path": [
+						"tokens",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0797a80c-cdd4-44e3-bb9c-07362f21c675",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "679df3cd-acb5-48b4-b1c3-a51d666dbaa4",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
