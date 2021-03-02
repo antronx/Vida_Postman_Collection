@@ -1,0 +1,364 @@
+{
+	"info": {
+		"_postman_id": "ed0ec4c0-1872-4d22-943a-4836adeb525e",
+		"name": "Test Case 408486:OTC JSON Header - Verify that OTC returns correct results when only mandatory fields are filled in Job Header - SME",
+		"description": "1. ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0 - Basic: Get VIDA Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try {\r",
+							"pm.environment.set(\"vidaToken\", responseBody);\r",
+							"} catch(e) {\r",
+							"    // To catch exception appearance in Console\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{bearer_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{link}}/api/tokens/",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"tokens",
+						""
+					]
+				},
+				"description": "This request is executed to get VIDA token.\r\nIt will be written down in the {{vidaToken}} environment variable automatically and will be used on OTC requests for authorization"
+			},
+			"response": []
+		},
+		{
+			"name": "1. CreateAJobWithHeaderFilledWithData ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is ok, response is json\", function () {\r",
+							"    pm.response.to.be.ok; \r",
+							"    pm.response.to.be.json; \r",
+							"});\r",
+							"\r",
+							"try {\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"jobId\", jsonData);\r",
+							"\r",
+							"\r",
+							"} catch(e) {\r",
+							"    // To catch exception appearance in Console\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"type": "text",
+						"value": "azvida00.corp.halliburton.com:8080",
+						"disabled": true
+					},
+					{
+						"key": "Connection",
+						"type": "text",
+						"value": "keep-alive",
+						"disabled": true
+					},
+					{
+						"key": "Content-Length",
+						"type": "text",
+						"value": "64054",
+						"disabled": true
+					},
+					{
+						"key": "sec-ch-ua",
+						"type": "text",
+						"value": "\"Chromium\";v=\"88\", \"Google Chrome\";v=\"88\", \";Not A Brand\";v=\"99\"",
+						"disabled": true
+					},
+					{
+						"key": "Pragma",
+						"type": "text",
+						"value": "no-cache",
+						"disabled": true
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"type": "text",
+						"value": "?0",
+						"disabled": true
+					},
+					{
+						"key": "User-Agent",
+						"type": "text",
+						"value": "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json, text/plain, */*",
+						"disabled": true
+					},
+					{
+						"key": "Cache-Control",
+						"type": "text",
+						"value": "no-cahe",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{bearer_token}}"
+					},
+					{
+						"key": "Origin",
+						"type": "text",
+						"value": "https://azvida00.corp.halliburton.com:8080",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"type": "text",
+						"value": "same-origin",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"type": "text",
+						"value": "cors",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"type": "text",
+						"value": "empty",
+						"disabled": true
+					},
+					{
+						"key": "Referer",
+						"type": "text",
+						"value": "https://azvida00.corp.halliburton.com:8080/",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Encoding",
+						"type": "text",
+						"value": "gip, deflate, br",
+						"disabled": true
+					},
+					{
+						"key": "Accept-Language",
+						"type": "text",
+						"value": "en-US,en;q=0.9",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"jobStatus\": \"719b0dc3-1c38-4fce-a271-dc410633a13f\",\r\n    \"jobStatusOrigin\": \"719b0dc3-1c38-4fce-a271-dc410633a13f\",\r\n    \"isStageJob\": false,\r\n    \"isGeothermal\": false,\r\n    \"isRemedial\": false,\r\n    \"isFoam\": false,\r\n    \"isClonedJob\": false,\r\n    \"riskLevel\": 3,\r\n    \"jobInformation\": {\r\n        \"jobName\": \"TC408486 - Job from API mandatory fields only\",\r\n        \"rig\": \"0125c78c-4903-4ae2-0900-08d8225365cb\",\r\n        \"customer\": \"(BAPETCO) BADR PETROLEUM CO\",\r\n        \"customerId\": \"0000319542\",\r\n        \"shipToNumber\": \"\",\r\n        \"shipToLocation\": \"\",\r\n        \"jobType\": \"dc5d707d-3c65-4e9e-9f14-2691c8525cdf\",\r\n        \"bomType\": null,\r\n        \"jobStatusDescription\": \"\",\r\n        \"projectedDate\": \"\",\r\n        \"groupId\": \"5a28ce4b-01b8-4784-a4e2-c650bddb636d\",\r\n        \"wellId\": \"7e99b922-8a93-4960-4dac-08d8cdcb0e91\",\r\n        \"orderNumber\": \"\",\r\n        \"quoteNumber\": \"\",\r\n        \"proposalNumber\": \"\",\r\n        \"jobCountryId\": \"USA\",\r\n        \"contractId\": null,\r\n        \"isLand\": true,\r\n        \"isOffshore\": false,\r\n        \"isVeritical\": true,\r\n        \"isDeviated\": false,\r\n        \"wellNumber\": \"123\",\r\n        \"wellApiUwi\": \"\",\r\n        \"latitudeDegrees\": null,\r\n        \"latitudeMinutes\": null,\r\n        \"latitudeSeconds\": \"\",\r\n        \"latitudeDirection\": null,\r\n        \"longitudeDegrees\": null,\r\n        \"longitudeMinutes\": null,\r\n        \"longitudeSeconds\": \"\",\r\n        \"longitudeDirection\": null,\r\n        \"hdfJobId\": \"\",\r\n        \"extractedSoFlag\": false,\r\n        \"isLinkedHdf\": false,\r\n        \"originalJobId\": \"\",\r\n        \"originalJobCode\": \"\",\r\n        \"originalJobName\": \"\"\r\n    },\r\n    \"customerContact\": {\r\n        \"fullName\": \"\",\r\n        \"phone\": \"\",\r\n        \"address1\": \"\"\r\n    },\r\n    \"jobDataInfo\": {\r\n        \"wellDatumElevation\": null,\r\n        \"jobMD\": null,\r\n        \"jobTVD\": null,\r\n        \"waterDepth\": null,\r\n        \"casingSizeValue\": null,\r\n        \"holeSizeValue\": null,\r\n        \"lease\": \"\",\r\n        \"field\": \"\",\r\n        \"site\": \"\",\r\n        \"bhct\": null,\r\n        \"isManualBHCT\": false,\r\n        \"bhctSource\": null,\r\n        \"bhctReasonOfOther\": \"\",\r\n        \"bhst\": null,\r\n        \"isManualBHST\": false,\r\n        \"isManualHoleSizeValue\": false,\r\n        \"isManualCasingSizeValue\": false,\r\n        \"bhstSource\": null,\r\n        \"bhstReasonOfOther\": \"\",\r\n        \"bhp\": null,\r\n        \"bhpSource\": null,\r\n        \"bhpReasonOfOther\": \"\",\r\n        \"holeSize2\": null,\r\n        \"holeSize3\": null,\r\n        \"holeSizeExcess\": null,\r\n        \"holeSizeExcess2\": null,\r\n        \"holeSizeExcess3\": null,\r\n        \"casingSize2\": null,\r\n        \"casingSize3\": null,\r\n        \"lengthOfPlug\": null,\r\n        \"plugBaseId\": null\r\n    },\r\n    \"jobStateComment\": null,\r\n    \"cdiIcem\": null,\r\n    \"cdiControlPoint\": null,\r\n    \"jobObjective\": [\r\n        {\r\n            \"id\": \"\",\r\n            \"option\": 13,\r\n            \"type\": null,\r\n            \"requirement\": null,\r\n            \"target\": null,\r\n            \"targetOtherJobObjective\": null,\r\n            \"targetFitLot\": null,\r\n            \"finalPumpPressureRequirement\": null,\r\n            \"uoM\": null,\r\n            \"justification\": \"There are to be no accidents or incidents concerning any cementing operation and no harm is to be caused to the environment. Cementing jobs are to be conducted in accordance with Halliburton’s Health, Safety and Environmental Standards.\",\r\n            \"lossInduced\": null,\r\n            \"marginOfError\": null,\r\n            \"density\": null,\r\n            \"rate\": null,\r\n            \"volume\": null,\r\n            \"reasonOfOther\": \"\",\r\n            \"state\": 1,\r\n            \"optionObjectiveMet\": null,\r\n            \"resultComment\": \"\",\r\n            \"actual\": \"\"\r\n        }\r\n    ],\r\n    \"jobContingency\": [],\r\n    \"pumpSchedule\": {\r\n        \"stages\": [\r\n            {\r\n                \"id\": null,\r\n                \"order\": 0,\r\n                \"syncObjectiveId\": null,\r\n                \"number\": 1,\r\n                \"pumpScheduleFluidTypeId\": \"e1c78ba9-3bd3-4799-b8e5-9d3fef9b7fbe\",\r\n                \"pumpScheduleFluidTypeName\": \"Drilling Fluid (Mud)\",\r\n                \"slurry\": null,\r\n                \"avgRate\": null,\r\n                \"topOfFluid\": null,\r\n                \"mudParameter\": {\r\n                    \"id\": null,\r\n                    \"mudTypeId\": null,\r\n                    \"typeName\": null,\r\n                    \"mudName\": null,\r\n                    \"mudDensity\": null\r\n                },\r\n                \"events\": [\r\n                    {\r\n                        \"pumpScheduleEventId\": null,\r\n                        \"placementMethod\": null,\r\n                        \"placementMethodName\": null,\r\n                        \"rate\": null,\r\n                        \"actualRate\": null,\r\n                        \"volume\": null,\r\n                        \"topOfFluid\": null,\r\n                        \"length\": null,\r\n                        \"duration\": 0,\r\n                        \"actualDuration\": null,\r\n                        \"bulkCement\": null,\r\n                        \"order\": 0\r\n                    }\r\n                ],\r\n                \"selectedFluidId\": null,\r\n                \"comment\": null,\r\n                \"isExpanded\": false,\r\n                \"isExpandedEvent\": false,\r\n                \"isExpandedFluid\": false,\r\n                \"isMudType\": false,\r\n                \"isManualyThickeningTime\": false,\r\n                \"isChangeActualVolumePumped\": false,\r\n                \"placementTime\": 0,\r\n                \"plannedVolume\": 0,\r\n                \"loadoutVolume\": 0,\r\n                \"isChangeLoadOutVolume\": false,\r\n                \"bulkCement\": null,\r\n                \"isBulkCement\": false,\r\n                \"thickeningTime\": null,\r\n                \"minThickeningTime\": null,\r\n                \"actualSafety\": null,\r\n                \"fluidMaterials\": [],\r\n                \"slurryIdHDF\": null,\r\n                \"actualVolumePumped\": 0,\r\n                \"dryWeight\": 0,\r\n                \"dryVolume\": 0,\r\n                \"plannedDensity\": null,\r\n                \"actualDensity\": null,\r\n                \"deadVolume\": null,\r\n                \"deadVolumeFluidType\": 0,\r\n                \"isManuallyDeadVolume\": false,\r\n                \"stageWaterTotal\": null,\r\n                \"waterRequirements\": null,\r\n                \"orderDisplay\": null,\r\n                \"slurryTypeId\": null,\r\n                \"totalCOGS\": null\r\n            }\r\n        ],\r\n        \"totalCOGS\": 0,\r\n        \"dryWeight\": 0,\r\n        \"dryVolume\": 0,\r\n        \"scheduledShutdown\": null,\r\n        \"targetSafetyFactor\": null,\r\n        \"controlPointType\": null\r\n    },\r\n    \"jobCriteria\": [],\r\n    \"slurry\": [],\r\n    \"jobLog\": {\r\n        \"events\": [],\r\n        \"displayStages\": true\r\n    },\r\n    \"jobActionMode\": 1,\r\n    \"extractHdfGeometryKey\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{link}}/api/jobs",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"jobs"
+					]
+				},
+				"description": "Job Name: API job created based on HDF. with header filled\r\n\r\nUsing this request one can create a new job with \r\nFields that will be under Test in next steps: \r\n•\tSales Order\r\n•\tShip To #\r\n•\tWell Name\r\n•\tWell Number\r\n•\tAPI/UWI\r\n•\tRig Name\r\n\r\nIn the response from server user will receive a job id of the newly created job. Save this job id if you need to update it in future.\r\nResponse is saved to {{jobId}} environment variable\r\n\r\n(Job Code sample: 0375bde6-64ff-48ef-868d-8e34b2d48bd2)"
+			},
+			"response": []
+		},
+		{
+			"name": "2. Get the jobCode of newly created job",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is ok, response is json\", function () {\r",
+							"    pm.response.to.be.ok; \r",
+							"    pm.response.to.be.json; \r",
+							"});\r",
+							"\r",
+							"try {\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"jobCode\", jsonData.jobCode);\r",
+							"} catch(e) {\r",
+							"    // To catch exception appearance in Console\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{bearer_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{link}}/api/jobs/{{jobId}}",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						"{{jobId}}"
+					]
+				},
+				"description": "Job code (HXXXX) from the response is saved to the {{jobCode}} environment variable "
+			},
+			"response": []
+		},
+		{
+			"name": "3. !Request Under Test! OtcGetJobHeaderInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify that correct Job Code is returned\", function () {\r",
+							"  pm.expect(pm.response.json().jobCode).to.eql(pm.environment.get(\"jobCode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct SO is returned\", function () {\r",
+							"  pm.expect(pm.response.json().salesOrder).to.eql(\"0905421876\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct shipToNumber is returned\", function () {\r",
+							"  pm.expect(pm.response.json().shipToNumber).to.eql(\"3904792\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well Name is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellName).to.eql(\"TTOPS GAS UNIT\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well Number is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellNumber).to.eql(\"2HB\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well API/UWI is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellAPIUWI).to.eql(\"42-005-30435-00\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Rig Name is returned\", function () {\r",
+							"  pm.expect(pm.response.json().rigName).to.eql(\"H & P 651\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Rig Description is returned\", function () {\r",
+							"  pm.expect(pm.response.json().rigDescription).to.eql(\"cvncvncvbvcbcvbcv\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Total Weight is returned\", function () {\r",
+							"  pm.expect(pm.response.json().totalWeight).to.eql(74842.211251615020);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Total Volume is returned\", function () {\r",
+							"  pm.expect(pm.response.json().totalVolume).to.eql(0.000000000000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Other Specifications To Note is returned\", function () {\r",
+							"  pm.expect(pm.response.json().otherSpecificationToNote).to.eql(\"notes other 1\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Internal Notes are returned\", function () {\r",
+							"  pm.expect(pm.response.json().internalNotes).to.eql(\"notes internal 1\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"type": "text",
+						"value": "{{vidaToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{link}}/api/jobs/summary/{{jobCode}}",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						"summary",
+						"{{jobCode}}"
+					]
+				},
+				"description": "Returns Job Header Info for a selected job in the response\r\n\r\nInspect response from Server and verify that following fields are present and data is correct:\r\nJob Header fields: \r\n    Sales Order\r\n    Ship To #\r\n    Well Name\r\n    Well Number\r\n    API/UWI\r\n    Rig Name \r\n    Rig Description from Rig Master list \r\n    Hole Size, Hole Size Excess, and Casing Size values, as many as are populated (max of 3)\r\n\r\nPump Schedule related fields:\r\n    Total Job Weight (In API units); \r\n    Total Job Volume  \r\n\r\nCP#2 related data:\r\n    Other Considerations to Note from CP 2\r\n    Internal Notes from CP 2 (new)\r\n    Technical Values, to include the following :\r\n    MD Customer Value from CP 2\r\n    TVD Customer Value from CP 2\r\n    Mud Weight Customer Value from CP 2"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

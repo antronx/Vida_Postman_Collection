@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "ce41f014-e965-40b1-ba5a-1ed13408aa61",
+		"name": "OTC JSON Job Data -  General requests",
+		"description": "1. ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Basic: Get VIDA Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try {\r",
+							"pm.environment.set(\"vidaToken\", responseBody);\r",
+							"} catch(e) {\r",
+							"    // To catch exception appearance in Console\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"value": "{{bearer_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{link}}/api/tokens/",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"tokens",
+						""
+					]
+				},
+				"description": "This request is executed to get VIDA token.\r\nIt will be written down in the {{vidaToken}} environment variable automatically and will be used on OTC requests for authorization"
+			},
+			"response": []
+		},
+		{
+			"name": "2. !Request Under Test! OtcGetJobHeaderInfo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify that correct Job Code is returned\", function () {\r",
+							"  pm.expect(pm.response.json().jobCode).to.eql(pm.environment.get(\"jobCode\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct SO is returned\", function () {\r",
+							"  pm.expect(pm.response.json().salesOrder).to.eql(\"0905421876\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct shipToNumber is returned\", function () {\r",
+							"  pm.expect(pm.response.json().shipToNumber).to.eql(\"3904792\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well Name is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellName).to.eql(\"TTOPS GAS UNIT\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well Number is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellNumber).to.eql(\"2HB\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Well API/UWI is returned\", function () {\r",
+							"  pm.expect(pm.response.json().wellAPIUWI).to.eql(\"42-005-30435-00\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Rig Name is returned\", function () {\r",
+							"  pm.expect(pm.response.json().rigName).to.eql(\"H & P 651\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Rig Description is returned\", function () {\r",
+							"  pm.expect(pm.response.json().rigDescription).to.eql(\"cvncvncvbvcbcvbcv\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Total Weight is returned\", function () {\r",
+							"  pm.expect(pm.response.json().totalWeight).to.eql(74842.211251615020);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Total Volume is returned\", function () {\r",
+							"  pm.expect(pm.response.json().totalVolume).to.eql(0.000000000000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Other Specifications To Note is returned\", function () {\r",
+							"  pm.expect(pm.response.json().otherSpecificationToNote).to.eql(\"notes other 1\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify that correct Internal Notes are returned\", function () {\r",
+							"  pm.expect(pm.response.json().internalNotes).to.eql(\"notes internal 1\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authorization",
+						"type": "text",
+						"value": "{{vidaToken}}"
+					}
+				],
+				"url": {
+					"raw": "{{link}}/api/jobs/summary/{{jobCode}}",
+					"host": [
+						"{{link}}"
+					],
+					"path": [
+						"api",
+						"jobs",
+						"summary",
+						"{{jobCode}}"
+					]
+				},
+				"description": "Returns Job Header Info for a selected job in the response\r\n\r\nInspect response from Server and verify that following fields are present and data is correct:\r\nJob Header fields: \r\n    Sales Order\r\n    Ship To #\r\n    Well Name\r\n    Well Number\r\n    API/UWI\r\n    Rig Name \r\n    Rig Description from Rig Master list \r\n    Hole Size, Hole Size Excess, and Casing Size values, as many as are populated (max of 3)\r\n\r\nPump Schedule related fields:\r\n    Total Job Weight (In API units); \r\n    Total Job Volume  \r\n\r\nCP#2 related data:\r\n    Other Considerations to Note from CP 2\r\n    Internal Notes from CP 2 (new)\r\n    Technical Values, to include the following :\r\n    MD Customer Value from CP 2\r\n    TVD Customer Value from CP 2\r\n    Mud Weight Customer Value from CP 2"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
