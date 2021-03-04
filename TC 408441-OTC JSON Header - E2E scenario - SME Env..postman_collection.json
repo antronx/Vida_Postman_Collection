@@ -668,17 +668,17 @@
 					{
 						"key": "authorization",
 						"type": "text",
-						"value": "{{bearer_token}}"
+						"value": "{{vidaToken}}"
 					}
 				],
 				"url": {
-					"raw": "{{link}}/api/jobs/summary/{{jobCode}}",
+					"raw": "{{link}}/api/job-data/summary/{{jobCode}}",
 					"host": [
 						"{{link}}"
 					],
 					"path": [
 						"api",
-						"jobs",
+						"job-data",
 						"summary",
 						"{{jobCode}}"
 					]
